@@ -20,10 +20,12 @@ public class UserDto {
     private String mob_num;
 
     @NotEmpty(message = "PAN number must not be empty")
-    @Pattern(regexp = "[A-Z]{5}[0-9]{4}[A-Z]{1}", message = "PAN number must be a valid PAN number")
+    @Pattern(regexp = "(?i)[a-z]{5}[0-9]{4}[a-z]{1}", message = "PAN number must be a valid PAN number")
     private String pan_num;
 
     private boolean is_active;
+
+    @@NotEmpty(message = "Manager_id must not be empty")
     private String manager_id;
     private Date created_at;
     private Date updated_at;
