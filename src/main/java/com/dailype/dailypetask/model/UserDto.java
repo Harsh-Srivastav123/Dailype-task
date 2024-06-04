@@ -25,7 +25,7 @@ public class UserDto {
 
     private boolean is_active;
 
-    @@NotEmpty(message = "Manager_id must not be empty")
+    @NotEmpty(message = "Manager_id must not be empty")
     private String manager_id;
     private Date created_at;
     private Date updated_at;
