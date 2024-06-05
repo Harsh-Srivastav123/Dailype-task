@@ -28,16 +28,16 @@ public class UserDto {
     @JsonProperty("pan_num")
     private String panNum;
 
-    @JsonProperty("is_active")
+    @JsonProperty(value = "is_active",access = JsonProperty.Access.READ_ONLY)
+
     private boolean isActive;
 
-    @NotEmpty(message = "Manager_id must not be empty")
     @JsonProperty("manager_id")
     private String managerId;
 
-    @JsonProperty("created_at")
+    @JsonProperty(value = "created_at",access = JsonProperty.Access.READ_ONLY)
     private Date createdAt;
 
-    @JsonProperty("updated_at")
+    @JsonProperty(value = "updated_at",access = JsonProperty.Access.READ_ONLY)
     private Date updatedAt;
 }

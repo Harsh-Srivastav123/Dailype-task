@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "users")
+
 public class User {
 
     @Id
@@ -26,7 +26,7 @@ public class User {
     @Column(name = "pan_num", nullable = false)
     private String panNum;
 
-    @Column(name = "manager_id", nullable = false)
+    @Column(name = "manager_id")
     private String managerId;
 
     @Column(name = "is_active", nullable = false)

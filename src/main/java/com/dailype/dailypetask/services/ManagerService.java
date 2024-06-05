@@ -19,7 +19,7 @@ public class ManagerService {
 
     public String createManager(ManagerDto managerDto) {
         Manager manager=modelMapper.map(managerDto, Manager.class);
-        String manager_id=managerDao.save(manager).getManager_id();
+        String manager_id=managerDao.save(manager).getManagerId();
         log.info("manager created successfully  "+manager_id);
         return  manager_id;
     }
