@@ -1,10 +1,6 @@
 package com.dailype.dailypetask.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,13 +14,29 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String user_id;
-    private String full_name;
-    private String mob_num;
-    private String pan_num;
-    private String manager_id;
-    private boolean is_active;
-    private Date created_at;
-    private Date updated_at;
+    @Column(name = "user_id")
+    private String userId;
 
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+
+    @Column(name = "mob_num", nullable = false)
+    private String mobNum;
+
+    @Column(name = "pan_num", nullable = false)
+    private String panNum;
+
+    @Column(name = "manager_id")
+    private String managerId;
+
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private Date updatedAt;
 }
