@@ -7,28 +7,37 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+
 @Data
 @NoArgsConstructor
 public class UserDto {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String user_id;
+    @JsonProperty("user_id")
+    private String userId;
+
     @NotEmpty(message = "Full name must not be empty")
-    private String full_name;
+    @JsonProperty("full_name")
+    private String fullName;
 
     @NotEmpty(message = "Mobile number must not be empty")
     @Pattern(regexp = "^(\\+91|0)?[6789]\\d{9}$", message = "Mobile number must be a valid 10-digit number")
-    private String mob_num;
+    @JsonProperty("mob_num")
+    private String mobNum;
 
     @NotEmpty(message = "PAN number must not be empty")
     @Pattern(regexp = "(?i)[a-z]{5}[0-9]{4}[a-z]{1}", message = "PAN number must be a valid PAN number")
-    private String pan_num;
+    @JsonProperty("pan_num")
+    private String panNum;
 
-    private boolean is_active;
+    @JsonProperty("is_active")
+    private boolean isActive;
 
     @NotEmpty(message = "Manager_id must not be empty")
-    private String manager_id;
-    private Date created_at;
-    private Date updated_at;
+    @JsonProperty("manager_id")
+    private String managerId;
 
+    @JsonProperty("created_at")
+    private Date createdAt;
 
+    @JsonProperty("updated_at")
+    private Date updatedAt;
 }

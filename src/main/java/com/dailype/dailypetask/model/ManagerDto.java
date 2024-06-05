@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MangerDto {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String manager_id;
+public class ManagerDto {
+    @JsonProperty("manager_id")
+    private String managerId;
+
     @NotEmpty(message = "Manager name must not be empty")
-    private String manager_name;
+    @JsonProperty("manager_name")
+    private String managerName;
 }
