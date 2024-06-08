@@ -3,6 +3,8 @@ package com.dailype.dailypetask.exceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,6 +20,24 @@ import java.util.Map;
 @ResponseStatus
 @Slf4j
 public class GlobalExceptionHandler {
+
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleException(Exception ex) throws Exception {
+        HashMap<String,Object> error=new HashMap<>();
+        if (ex instanceof AccessDeniedException || ex instanceof AuthenticationException) {
+            log.info("error handle here !!");
+            error.put("httpStatus", HttpStatus.BAD_REQUEST);
+            error.put("message",ex.getMessage());
+            throw  ex;
+        }else {
+            return null;
+        }
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                .body((error);
+        // Handle other exceptions
+        // ...
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
