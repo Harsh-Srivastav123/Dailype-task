@@ -3,7 +3,9 @@ package com.dailype.dailypetask.services;
 import com.dailype.dailypetask.dao.ManagerDao;
 import com.dailype.dailypetask.dao.UserSecuredDao;
 
+import com.dailype.dailypetask.dao.VerifyTokenDao;
 import com.dailype.dailypetask.entity.UserSecured;
+import com.dailype.dailypetask.entity.VerifyToken;
 import com.dailype.dailypetask.exceptions.BadRequestException;
 import com.dailype.dailypetask.exceptions.NotFoundException;
 import com.dailype.dailypetask.model.UserSecuredDto;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +39,8 @@ public class UserSecuredService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    VerifyTokenDao verifyTokenDao;
 
     public String createUser(UserSecuredDto userSecuredDto) {
 
@@ -197,5 +202,30 @@ public class UserSecuredService {
             throw new BadRequestException("unable to find user_secured by username !!");
         }
         return userSecured.get().getUserSecuredId();
+    }
+
+    public void saveVerificationToken(UserSecuredDto userSecuredDto, String token) {
+        UserSecured userSecured=userSecuredDao.findByUserName(userSecuredDto.getUserName()).get();
+        verifyTokenDao.save(new VerifyToken(token,userSecured));
+    }
+
+    public int validateToken(String token) {
+
+        VerifyToken verifyToken = verifyTokenDao.findByToken(token);
+        if (verifyToken == null) {
+            return 1;
+        }
+
+
+        UserSecured userSecured = verifyToken.getUserSecured();
+        Calendar calendar = Calendar.getInstance();
+        if ((verifyToken.getExpirationTime().getTime() - calendar.getTime().getTime()) <= 0) {
+            verifyTokenDao.delete(verifyToken);
+            userSecuredDao.delete(verifyToken.getUserSecured());
+            return 2;
+        }
+        userSecured.setVerified(true);
+        userSecuredDao.save(userSecured);
+        return 3;
     }
 }

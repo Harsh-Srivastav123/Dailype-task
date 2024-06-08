@@ -1,6 +1,7 @@
 package com.dailype.dailypetask.controllers;
 
 import com.dailype.dailypetask.entity.UserSecured;
+import com.dailype.dailypetask.event.VerifyTokenEvent;
 import com.dailype.dailypetask.exceptions.BadRequestException;
 import com.dailype.dailypetask.model.RequestPayload;
 import com.dailype.dailypetask.model.RequestSecuredPayload;
@@ -14,19 +15,18 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,12 +56,24 @@ public class SecuredController {
     @Autowired
     Gson gson;
 
+    @Autowired
+    ApplicationEventPublisher publisher;
+
+
+
+
     public record Response(String user_id, Object object){};
 
     @PostMapping("/create_user")
-    public ResponseEntity<Object> createUser(@Valid @RequestBody UserSecuredDto userSecuredDto){
+    public ResponseEntity<Object> createUser(@Valid @RequestBody UserSecuredDto userSecuredDto, HttpServletRequest request){
         String userId=userSecuredService.createUser(userSecuredDto);
+        publisher.publishEvent(new VerifyTokenEvent(userSecuredDto,generateUrl(request)));
         return new ResponseEntity<>(new Response(userId,"User_Secured Created Successfully"), HttpStatus.OK);
+    }
+
+
+    private String generateUrl(HttpServletRequest request) {
+        return "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath();
     }
 
     @PostMapping("/auth")
@@ -97,6 +109,18 @@ public class SecuredController {
         else {
             return new ResponseEntity<>(userSecuredService.getUserById(user_secured_id),HttpStatus.OK);
         }
+    }
+
+    @GetMapping("verifyRegistration")
+    public ResponseEntity<Object> verifyRegistration(@RequestParam("token") String token){
+        int status=userSecuredService.validateToken(token);
+        if(status==0){
+            return new ResponseEntity<>("enter valid token", HttpStatus.BAD_REQUEST);
+        }
+        if(status==1){
+            return new ResponseEntity<>("token expired",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("token  verified Successfully ",HttpStatus.OK);
     }
 
     @PostMapping("/delete_user")
@@ -157,4 +181,6 @@ public class SecuredController {
         userSecuredService.UserUpdateUsingList(userList);
         return new ResponseEntity<>("List is updated successfully",HttpStatus.OK);
     }
+
+
 }
