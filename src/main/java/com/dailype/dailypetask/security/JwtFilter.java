@@ -1,10 +1,13 @@
 package com.dailype.dailypetask.security;
 
 import com.dailype.dailypetask.services.UserDetailsSecuredInfoService;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,7 +37,23 @@ public class JwtFilter extends OncePerRequestFilter {
 //        }
         if (authHeader!=null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            username = jwtService.extractUsername(token);
+            try {
+                username = jwtService.extractUsername(token);
+            } catch (IllegalArgumentException e) {
+                logger.info("Illegal Argument while fetching the username !!");
+                e.printStackTrace();
+            } catch (ExpiredJwtException e) {
+                logger.info("Given jwt token is expired !!");
+                e.printStackTrace();
+                throw new BadRequestException("Jwt token expired");
+            } catch (MalformedJwtException e) {
+                logger.info("Some changed has done in token !! Invalid Token");
+                e.printStackTrace();
+                throw new BadRequestException("Jwt token is manipulated");
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
