@@ -16,11 +16,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,9 +40,15 @@ public class UserSecuredService {
     @Autowired
     VerifyTokenDao verifyTokenDao;
 
-    public String createUser(UserSecuredDto userSecuredDto) {
+    @Autowired
+    AwsService awsServices;
 
-
+    public String createUser(@Valid  UserSecuredDto userSecuredDto, MultipartFile file) {
+        if(Objects.equals(file.getContentType(), "image/png") || Objects.equals(file.getContentType(), "image/jpeg")){
+            String fileName=UUID.randomUUID().toString()+"_"+file.getName();
+            awsServices.uploadMedia(file,fileName);
+            userSecuredDto.setImageUrl(fileName);
+        }
         if(userSecuredDao.findByUserName(userSecuredDto.getUserName()).isPresent()){
             throw new BadRequestException("user already exists with the same user_name !!");
         }
@@ -70,6 +74,7 @@ public class UserSecuredService {
         log.info("UserSecured created successfully  "+ userSecuredId);
         return userSecuredId;
     }
+
 
     public Object getUserWithManagerId(String managerId) {
 
@@ -227,5 +232,13 @@ public class UserSecuredService {
         userSecured.setVerified(true);
         userSecuredDao.save(userSecured);
         return 3;
+    }
+
+    public byte[] getImage(String userSecuredId){
+        if(!userSecuredDao.existsById(userSecuredId)){
+            throw new BadRequestException("User_secured doesn't exists");
+        }
+        String fileName=userSecuredDao.findById(userSecuredId).get().getImageUrl();
+        return awsServices.downloadFile(fileName);
     }
 }
