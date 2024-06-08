@@ -11,6 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      
+      - name: Upload file production.properties
+        run: cp /home/ubuntu/production.properties ./src/main/resources 
+
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
