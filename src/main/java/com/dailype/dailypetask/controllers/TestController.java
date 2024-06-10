@@ -22,11 +22,13 @@ public class TestController {
     }
     @GetMapping("/test1")
     public ResponseEntity<Object> test1(){
+        log.info("server test1 working !!");
         return new ResponseEntity<>("server test1 working !!", HttpStatus.OK);
     }
 
     @GetMapping("/test2")
     public ResponseEntity<Object> test2(){
+        log.info("server test1 working !!");
         return new ResponseEntity<>("server test2 working !!", HttpStatus.OK);
     }
 
