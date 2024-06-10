@@ -40,4 +40,10 @@ public class UserDto {
 
     @JsonProperty(value = "updated_at",access = JsonProperty.Access.READ_ONLY)
     private Date updatedAt;
+
+
+    @JsonProperty("is_active")
+    public boolean getIsActive() {
+        return isActive;
+    }
 }
