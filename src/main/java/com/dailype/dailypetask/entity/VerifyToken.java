@@ -19,7 +19,7 @@ public class VerifyToken {
     String token;
     Date expirationTime;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId",nullable = false)
     UserSecured userSecured;
 

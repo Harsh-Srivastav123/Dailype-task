@@ -179,4 +179,11 @@ public class UserService {
             userDao.save(user);
         }
     }
+
+    public Object findUserforTest(String userId) {
+        if(!userDao.existsById(userId)){
+            throw new NotFoundException("user not found check the id carefully!!");
+        }
+        return userDao.findById(userId);
+    }
 }

@@ -69,14 +69,14 @@ public class SecuredController {
 
     @PostMapping(path = "/create_user",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<Object> createUser(
-            @RequestParam("user_secured") String userSecured,
+            @RequestParam(value = "user_secured") String userSecured,
             @RequestPart(value = "image",required = false) MultipartFile file
             , HttpServletRequest request){
-
+        log.info("reach here !!");
         UserSecuredDto userSecuredDto=getUserInfoFromString(userSecured);
         String userId=userSecuredService.createUser(userSecuredDto,file);
         publisher.publishEvent(new VerifyTokenEvent(userSecuredDto,generateUrl(request)));
-        return new ResponseEntity<>(new Response(userId,"User_Secured Created Successfully"), HttpStatus.OK);
+        return new ResponseEntity<>(new Response(userId,"User_Secured Created Successfully Verify Email to further continue !!"), HttpStatus.OK);
     }
 
     private UserSecuredDto getUserInfoFromString(String userSecured) {
@@ -103,12 +103,13 @@ public class SecuredController {
             token.put("user_secured_id",userSecuredService.getUserIdByUsername(userName));
             token.put("user_name",userName);
             token.put("token",jwtServices.generateToken(userName));
+            token.put("refreshToken",userSecuredService.createRefreshToken(userName));
             return new ResponseEntity<>(token,HttpStatus.OK);
         }
         return new ResponseEntity<>("check the credentials carefully !!", HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/get_user")
+    @PostMapping("/get_users")
     public ResponseEntity<Object> getUser(@RequestBody RequestSecuredPayload requestSecuredPayload){
         String user_secured_id=requestSecuredPayload.getUserSecuredId();
         String mob_num=requestSecuredPayload.getMobNum();
@@ -136,7 +137,7 @@ public class SecuredController {
         if(status==1){
             return new ResponseEntity<>("token expired",HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("token  verified Successfully ",HttpStatus.OK);
+        return new ResponseEntity<>("Welcome to DailyPe , Email verified successfully ",HttpStatus.OK);
     }
 
     @PostMapping("/delete_user")
@@ -207,6 +208,30 @@ public class SecuredController {
         System.out.println(httpHeaders.getContentType().toString());
         httpHeaders.setContentLength(image.length);
         return new ResponseEntity<>(image, httpHeaders, HttpStatus.OK);
+    }
+
+    @PostMapping("/refreshToken")
+    public ResponseEntity<Object> refreshToken(@RequestBody String refreshTokenRequest) {
+        JsonObject jsonObject = gson.fromJson(refreshTokenRequest, JsonObject.class);
+        String token=jsonObject.get("refresh_token").getAsString();
+        UserSecuredDto userSecuredDto= userSecuredService.verifyExpiration(token);
+
+        HashMap<String ,Object> response=new HashMap<>();
+        response.put("user_secured_id",userSecuredDto.getUserSecuredId());
+        response.put("user_name",userSecuredDto.getUserName());
+        response.put("token",jwtServices.generateToken(userSecuredDto.getUserName()));
+        response.put("refreshToken",token);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    @PostMapping("/getRefreshToken")
+    public ResponseEntity<Object> getRefreshToken(@RequestBody String userName1){
+        JsonObject jsonObject = gson.fromJson(userName1, JsonObject.class);
+        String userName=jsonObject.get("user_name").getAsString();
+        HashMap<String,Object> response=new HashMap<>();
+        response.put("user_name",userName);
+        response.put("refreshToken",userSecuredService.getRefreshToken(userName));
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
 

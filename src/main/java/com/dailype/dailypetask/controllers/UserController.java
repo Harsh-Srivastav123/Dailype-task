@@ -35,7 +35,7 @@ public class UserController {
     @Autowired
     ObjectMapper objectMapper;
 
-    public record Response(String user_id, Object object){};
+    public record Response(String user_id, Object message){};
 
     @PostMapping("/create_user")
     public ResponseEntity<Object> createUser(@Valid @RequestBody UserDto userDto){
@@ -43,7 +43,7 @@ public class UserController {
         return new ResponseEntity<>(new Response(userId,"User Created Successfully"), HttpStatus.OK);
     }
 
-    @PostMapping("/get_user")
+    @PostMapping("/get_users")
     public ResponseEntity<Object> getUser(@RequestBody RequestPayload requestPayload){
         String user_id=requestPayload.getUserId();
         String mob_num=requestPayload.getMobNum();

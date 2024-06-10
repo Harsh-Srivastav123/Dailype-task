@@ -1,9 +1,11 @@
 package com.dailype.dailypetask.services;
 
 import com.dailype.dailypetask.dao.ManagerDao;
+import com.dailype.dailypetask.dao.RefreshTokenDao;
 import com.dailype.dailypetask.dao.UserSecuredDao;
 
 import com.dailype.dailypetask.dao.VerifyTokenDao;
+import com.dailype.dailypetask.entity.RefreshToken;
 import com.dailype.dailypetask.entity.UserSecured;
 import com.dailype.dailypetask.entity.VerifyToken;
 import com.dailype.dailypetask.exceptions.BadRequestException;
@@ -18,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -42,6 +45,10 @@ public class UserSecuredService {
 
     @Autowired
     AwsService awsServices;
+
+    @Autowired
+    RefreshTokenDao refreshTokenDao;
+    public static final int REFRESH_TOKEN_EXPIRATION_TIME=3600;//expiration task
 
     public String createUser(@Valid  UserSecuredDto userSecuredDto, MultipartFile file) {
         if(Objects.equals(file.getContentType(), "image/png") || Objects.equals(file.getContentType(), "image/jpeg")){
@@ -240,5 +247,40 @@ public class UserSecuredService {
         }
         String fileName=userSecuredDao.findById(userSecuredId).get().getImageUrl();
         return awsServices.downloadFile(fileName);
+    }
+
+    public String createRefreshToken(String username) {
+        RefreshToken refreshTokenTemp=refreshTokenDao.findByUserSecured(userSecuredDao.findByUserName(username).get());
+        if(refreshTokenTemp!=null){
+            refreshTokenTemp.setUserSecured(null);
+            refreshTokenDao.delete(refreshTokenDao.save(refreshTokenTemp));
+        }
+        RefreshToken refreshToken = RefreshToken.builder()
+                .userSecured(userSecuredDao.findByUserName(username).get())
+                .token(UUID.randomUUID().toString())
+                .expiryDate(Instant.now().plusMillis(60000*REFRESH_TOKEN_EXPIRATION_TIME))
+                .build();
+        return refreshTokenDao.save(refreshToken).getToken();
+    }
+
+    public UserSecuredDto verifyExpiration(String refreshToken) {
+        if(!refreshTokenDao.existsByToken(refreshToken)){
+            throw new BadRequestException("Unable to associate user with this token !!");
+        }
+        RefreshToken token=refreshTokenDao.findByToken(refreshToken);
+
+        if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
+            refreshTokenDao.delete(token);
+            throw new BadRequestException(token.getToken() + " Refresh token was expired. Please make a new signin request");
+        }
+        return modelMapper.map(token.getUserSecured(),UserSecuredDto.class);
+    }
+
+
+    public Object getRefreshToken(String userName) {
+        if(userSecuredDao.findByUserName(userName).isEmpty()){
+            throw new BadRequestException("user_secured doesn't exists !!");
+        }
+        return refreshTokenDao.findByUserSecured(userSecuredDao.findByUserName(userName).get()).getToken();
     }
 }

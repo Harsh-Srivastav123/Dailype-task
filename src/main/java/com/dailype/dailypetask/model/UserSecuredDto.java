@@ -50,8 +50,9 @@ public class UserSecuredDto {
     @NotEmpty(message = "UserName must not be empty")
     private String userName;
 
-    @JsonProperty(value = "password")
+    @JsonProperty(value = "password",access = JsonProperty.Access.WRITE_ONLY)
     @NotEmpty(message = "Password must not be empty")
+
     private String password;
 
     @Email(message = "Email should be valid")

@@ -32,9 +32,6 @@ public class SecurityConfiguration  {
 
     @Bean
     public UserDetailsService userDetailsService(){
-//        UserDetails user1= User.withUsername("harsh").password(passwordEncoder.encode("Pwd1")).roles("ADMIN","USER-1").build();
-//        UserDetails user2= User.withUsername("raj").password(passwordEncoder.encode("Pwd2")).roles("USER-1").build();
-//        return new InMemoryUserDetailsManager(user1,user2);
         return new UserDetailsSecuredInfoService();
     }
     @Bean
@@ -48,7 +45,7 @@ public class SecurityConfiguration  {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("/secured/create_user","/secured/verifyRegistration","/secured/auth","/create_user","/get_users","/delete_user"," /update_user")
+                                .requestMatchers("/secured/create_user","/secured/verifyRegistration","/secured/auth","/","/test1","/test2","/secured/refreshToken","/secured/getRefreshToken","/create_user","/get_users","/delete_user","/update_user","/manager/create_manager","/swagger-ui/**","/v3/api-docs/**","/bus/v3/api-docs/**","/test/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
