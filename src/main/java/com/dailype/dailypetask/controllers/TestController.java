@@ -28,7 +28,7 @@ public class TestController {
 
     @GetMapping("/test2")
     public ResponseEntity<Object> test2(){
-        log.info("server test1 working !!");
+        log.info("server test2 working !!");
         return new ResponseEntity<>("server test2 working !!", HttpStatus.OK);
     }
 
