@@ -57,4 +57,7 @@ public class UserSecured {
 
     @Column(name = "image_url")
     private String imageUrl;
+
+    @OneToOne(mappedBy = "userSecured", cascade = CascadeType.ALL, orphanRemoval = true)
+    private VerifyToken verifyToken;
 }
