@@ -18,7 +18,7 @@ public class TestController {
     UserService userService;
     @GetMapping("/")
     public ResponseEntity<Object> home(){
-        return new ResponseEntity<>("Welcome to DailyPe , Server is working  !!", HttpStatus.OK);
+        return new ResponseEntity<>("Welcome to DailyPe , Server is working fine !!", HttpStatus.OK);
     }
     @GetMapping("/test1")
     public ResponseEntity<Object> test1(){
