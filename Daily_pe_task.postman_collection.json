@@ -1,0 +1,824 @@
+{
+	"info": {
+		"_postman_id": "54427348-127c-48e2-947e-a2d7893f50f3",
+		"name": "Daily_pe_task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25729514"
+	},
+	"item": [
+		{
+			"name": "task",
+			"item": [
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"full_name\": \"Harsh\",\r\n  \"mob_num\": \"7388882090\",\r\n  \"pan_num\": \"ABCDE1234F\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/create_user",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"create_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createManager",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"manager_name\":\"H@rsh12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/manager/create_manager",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"manager",
+								"create_manager"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"mob_num\":\"6388882098\",\r\n    // \"user_id\":\"eb3d4124-f55a-49dd-aeef-ba335261a817\",\r\n    \"manager_id\":\"c0d7c3fc-2382-438c-8e0c-04702cb71379\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/get_users",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"get_users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"mob_num\": \"6388882098\",\r\n    \"user_id\": \"eb3d4124-f55a-49dd-aeef-ba335261a817\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/delete_user",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"delete_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": \"1f76471f-2aef-42fe-9277-8eee4a344bed\",\r\n    \"full_name\": \"Harsh12345\",\r\n    \"mob_num\": \"+917388882591\",\r\n    \"pan_num\": \"BBCDE1234P\",\r\n    \"manager_id\":\"12595a9d-cce4-410d-bb4d-8dc353f863fc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/update_user",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"update_user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "task deployed",
+			"item": [
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"full_name\": \"Harsh\",\r\n  \"mob_num\": \"7388882097\",\r\n  \"pan_num\": \"ABCDE1234F\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}/create_user",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"create_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createManager",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"manager_name\":\"H@rsh1234567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}/manager/create_manager",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"manager",
+								"create_manager"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"mob_num\":\"6388882098\",\r\n    // \"user_id\":\"eb3d4124-f55a-49dd-aeef-ba335261a817\",\r\n    \"manager_id\":\"c0d7c3fc-2382-438c-8e0c-04702cb71379\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/get_users",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"get_users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"mob_num\": \"6388882098\",\r\n    \"user_id\": \"e32fc0d5-3a00-4f93-a316-00fb838ff6df\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}/delete_user",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"delete_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": \"1f76471f-2aef-42fe-9277-8eee4a344bed\",\r\n    \"full_name\": \"Harsh12345\",\r\n    \"mob_num\": \"+917388882591\",\r\n    \"pan_num\": \"BBCDE1234P\",\r\n    \"manager_id\":\"12595a9d-cce4-410d-bb4d-8dc353f863fc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/update_user",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"update_user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "taskExtended-Secured-API",
+			"item": [
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_secured",
+									"value": "{\n  \"full_name\": \"Harsh1234561\",\n  \"mob_num\": \"6388882090\",\n  \"pan_num\": \"OyAPS1827p\",\n  \"email\":\"windowsharsh2003@gmail.com\",\n  \"user_name\":\"Harsh@123475ghbf\",\n  \"password\":\"12345\"\n}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/secured/create_user",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"secured",
+								"create_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"full_name\": \"Harsh\",\r\n  \"mob_num\": \"7388882090\",\r\n  \"pan_num\": \"ABCDE1234F\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/create_user",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"create_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createManager",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"manager_name\":\"H@rsh12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/manager/create_manager",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"manager",
+								"create_manager"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"mob_num\":\"6388882098\",\r\n    // \"user_id\":\"eb3d4124-f55a-49dd-aeef-ba335261a817\",\r\n    \"manager_id\":\"c0d7c3fc-2382-438c-8e0c-04702cb71379\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/get_users",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"get_users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"mob_num\": \"6388882098\",\r\n    \"user_id\": \"eb3d4124-f55a-49dd-aeef-ba335261a817\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/delete_user",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"delete_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": \"1f76471f-2aef-42fe-9277-8eee4a344bed\",\r\n    \"full_name\": \"Harsh12345\",\r\n    \"mob_num\": \"+917388882591\",\r\n    \"pan_num\": \"BBCDE1234P\",\r\n    \"manager_id\":\"12595a9d-cce4-410d-bb4d-8dc353f863fc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/update_user",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"update_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refreshToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh_token\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/secured/refreshToken",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"secured",
+								"refreshToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRefreshToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\":\"Harsh@123475fghbf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/secured/getRefreshToken",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"secured",
+								"getRefreshToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImage",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIYXJzaEAxMjM0NzVmZ2hiZmgiLCJpYXQiOjE3MTgwNDU2NDMsImV4cCI6MTcxODA0NjI0M30.W5RsH_JlKG3XA4ERL24k1-3JdNrS1dtCEseJ_mMH2S8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{local-server-8080}}/secured/image/75af2ee3-39cf-4dad-8545-0a906465d9c0",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"secured",
+								"image",
+								"75af2ee3-39cf-4dad-8545-0a906465d9c0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "taskExtended-deployed",
+			"item": [
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_secured",
+									"value": "{\n  \"full_name\": \"Harsh1234561\",\n  \"mob_num\": \"6388182060\",\n  \"pan_num\": \"OyAPS9927p\",\n  \"email\":\"windowsharsh2003@gmail.com\",\n  \"user_name\":\"Harsh@123475fghbkfh\",\n  \"password\":\"12345\"\n}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "profile-maihar..png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{server}}/secured/create_user",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"secured",
+								"create_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n  \"user_name\":\"Harsh@123475fghbkfh\",\r\n  \"password\":\"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}/secured/auth",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"secured",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createManager",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"manager_name\":\"H@rsh12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}/manager/create_manager",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"manager",
+								"create_manager"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIYXJzaEAxMjM0NzVmZ2hia2ZoIiwiaWF0IjoxNzE4MDk4OTcwLCJleHAiOjE3MTgwOTk1NzB9.FrBZBbIe6iSG6XRXcQpZ6eVIHVevodQLaqG-JJ_XWno",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"mob_num\":\"6388882098\",\r\n    \"user_secured_id\":\"75af2ee3-39cf-4dad-8545-0a906465d9c0\"\r\n    // \"manager_id\":\"c0d7c3fc-2382-438c-8e0c-04702cb71379\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}/secured/get_users",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"secured",
+								"get_users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIYXJzaEAxMjM0NzVmZ2hia2ZoIiwiaWF0IjoxNzE4MDk5OTkwLCJleHAiOjE3MTgxMDA1OTB9.yCK7SrLIJK05EsRRyV-H8d9212YUSqi4tc_qOxxtyIE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"mob_num\": \"6388882098\",\r\n    \"user_secured_id\": \"18c4aab6-0f64-4c03-b783-8c9f9e37055a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}}/secured/delete_user",
+							"protocol": "http",
+							"host": [
+								"{{server}}}"
+							],
+							"path": [
+								"secured",
+								"delete_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIYXJzaEAxMjM0NzVmZ2hia2ZoIiwiaWF0IjoxNzE4MDk5OTkwLCJleHAiOjE3MTgxMDA1OTB9.yCK7SrLIJK05EsRRyV-H8d9212YUSqi4tc_qOxxtyIE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"active\": true,\r\n    \"verified\": true,\r\n    \"user_id\": \"75af2ee3-39cf-4dad-8545-0a906465d9c0\",\r\n    \"full_name\": \"Harsh1234561\",\r\n    \"mob_num\": \"+916388882060\",\r\n    \"pan_num\": \"OYAPS1927P\",\r\n    \"is_active\": true,\r\n    \"manager_id\": \"12595a9d-cce4-410d-bb4d-8dc353f863fc\",\r\n    \"created_at\": \"2024-06-10T18:51:04.569+00:00\",\r\n    \"updated_at\": null,\r\n    \"is_verified\": true,\r\n    \"user_name\": \"Harsh@123475fghbfh\",\r\n    \"email\": \"windowsharsh2003@gmail.com\",\r\n    \"image_url\": \"850f9cd4-33ec-463d-b645-9be80aa91d5b_image\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}/secured/update_user",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"secured",
+								"update_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refreshToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh_token\":\"15cdc63b-0852-4823-9851-9157be6c84a4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}/secured/refreshToken",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"secured",
+								"refreshToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRefreshToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\":\"Harsh@123475fghbf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{local-server-8080}}/secured/getRefreshToken",
+							"protocol": "http",
+							"host": [
+								"{{local-server-8080}}"
+							],
+							"path": [
+								"secured",
+								"getRefreshToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImage",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "server",
+			"value": "65.2.89.224"
+		},
+		{
+			"key": "local-server",
+			"value": "localhost:8080"
+		},
+		{
+			"key": "local-server-8080",
+			"value": "localhost:8080"
+		}
+	]
+}
